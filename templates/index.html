@@ -4,6 +4,8 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>{{ title|title }}</title>
+
+        {% load static %}
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
         <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
@@ -15,42 +17,43 @@
     </head>
 
     <body>
-        <div class="row">
-            <div class="col-md-4"></div>
+        <section class="pb-5 header text-center">
+            <div class="row">
+                <div class="col-md-4"></div>
+                <div class="col-md-4">
+                    <div class="card card-body border-0 p-5">
+                        <!-- Form Wrapper & Button -->
+                        <button class="btn btn-sm btn-primary add-test" id="add-test">Add Test</button>
+                        <div class="form-wrapper hidden">
+                            <select class="form-control" id="test-name">
+                                <option>Flash Point</option>
+                                <option>Water</option>
+                                <option>Distillation</option>
+                            </select>
+                            <input class="form-control" type="text" id="test-result">
+                            <button class="btn btn-sm btn-info" id="create-test">Add</button>
+                        </div>
 
-            <div class="col-md-4">
-                <div class="card card-body">
-                    <!-- Form Wrapper & Button -->
-                    <button class="btn btn-sm btn-primary add-test" id="add-test">Add Test</button>
-                    <div class="form-wrapper hidden">
-                        <select class="form-control" id="test-name">
-                            <option>Flash Point</option>
-                            <option>Water</option>
-                            <option>Distillation</option>
-                        </select>
-                        <input class="form-control" type="text" id="test-result">
-                        <button class="btn btn-sm btn-info" id="create-test">Add</button>
+                        <!-- Data Table -->
+                        <table class="table table-dark">
+                          <thead>
+                            <tr>
+                              <th scope="col">Test</th>
+                              <th scope="col">Result</th>
+                            </tr>
+                          </thead>
+                          <tbody id="tests-table">
+                            
+                          </tbody>
+                        </table>
+
                     </div>
-
-                    <!-- Data Table -->
-                    <table class="table table-dark">
-                      <thead>
-                        <tr>
-                          <th scope="col">Test</th>
-                          <th scope="col">Result</th>
-                        </tr>
-                      </thead>
-                      <tbody id="tests-table">
-                        
-                      </tbody>
-                    </table>
 
                 </div>
 
+                <div class="col-md-4"></div>
             </div>
-
-            <div class="col-md-4"></div>
-        </div>
+        </section>
     
         <script>
             var newId = 1
@@ -133,18 +136,18 @@
 
             function addRow(obj){
                 var row = `<tr scope="row" class="test-row-${obj.id}">
-                        <td>${obj.name}</td>
-                        <td id="result-${obj.id}" data-testid="${obj.id}">${obj.result}</td>
-                        <td>
-                            <button class="btn btn-sm btn-danger" data-testid="${obj.id}" id="delete-${obj.id}">Delete</button>
+                <td>${obj.name}</td>
+                <td id="result-${obj.id}" data-testid="${obj.id}">${obj.result}</td>
+                <td>
+                <button class="btn btn-sm btn-danger" data-testid="${obj.id}" id="delete-${obj.id}">Delete</button>
 
-                            <button class="btn btn-sm btn-info" disabled data-testid="${obj.id}" id="save-${obj.id}">Save</button>
+                <button class="btn btn-sm btn-info" disabled data-testid="${obj.id}" id="save-${obj.id}">Save</button>
 
-                            <button class="btn btn-sm btn-danger hidden" data-testid="${obj.id}" id="cancel-${obj.id}">Cancel</button>
+                <button class="btn btn-sm btn-danger hidden" data-testid="${obj.id}" id="cancel-${obj.id}">Cancel</button>
 
-                            <button class="btn btn-sm btn-primary hidden" data-testid="${obj.id}" id="confirm-${obj.id}">Confirm</button>
-                        </td>
-                   </tr>`
+                <button class="btn btn-sm btn-primary hidden" data-testid="${obj.id}" id="confirm-${obj.id}">Confirm</button>
+                </td>
+                </tr>`
 
                 $(`#tests-table`).append(row)
 
